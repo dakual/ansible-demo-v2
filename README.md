@@ -1,6 +1,7 @@
 # Docker compose
-$ docker compose up -d
-
+```sh
+docker compose up -d
+```
 # Conneccting ansible shel (ansible controller)
 $ command docker exec -it ansible /bin/bash
 
