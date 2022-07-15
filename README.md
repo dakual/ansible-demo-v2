@@ -1,40 +1,40 @@
-# Docker compose
+## Docker compose
 ```sh
 docker compose up -d
 ```
 
-# Conneccting ansible shel (ansible controller)
+## Conneccting ansible shel (ansible controller)
 ```sh
-command docker exec -it ansible /bin/bash
+docker exec -it ansible /bin/bash
 ```
 
-# show docker container ip iaddress
+## show docker container ip iaddress
 ```sh
 docker inspect remote-one | grep IPAddress
 ```
 
-# show ip address
+## show ip address
 ```sh
 hostname -I
 ```
 
-# Create ansible controller ssh key
+## Create ansible controller ssh key
 > ssh key path and filename: /root/.ssh/ansible
 ```sh
 ssh-keygen -t ed25519 -C "Ansible Key"
 ```
 
-# Copy public key to worker nodes
+## Copy public key to worker nodes
 ```sh
 ssh-copy-id -i /root/.ssh/ansible.pub remote-one
 ```
 
-# Create working directory in ansible controller
+## Create working directory in ansible controller
 ```sh
 mkdir /root/my_workdir
 ```
 
-# Create invontery list in working directory
+## Create invontery list in working directory
 ```sh
 nano /root/my_workdir/invontery
 ```
@@ -44,12 +44,12 @@ host1 ansible_host=remote-one ansible_user=root ansible_password=password
 host2 ansible_host=remote-two ansible_user=root ansible_password=password
 ```
 
-# ping all invontery
+## ping all invontery
 ```sh
 ansible all --key-file /root/.ssh/ansible -i invontery -m ping
 ```
 
-# setting default config file
+## setting default config file
 ```sh
 nano /root/my_workdir/ansible.cfg
 ```
@@ -63,7 +63,7 @@ private_key_file = /root/.ssh/ansible
 ansible all -m ping
 ```
 
-# ansible adhoc commands
+## ansible interactive commands
 ```sh
 ansible [host|group|all] -m ping
 ansible all -m command -a "/bin/echo hello world"
@@ -76,7 +76,7 @@ ansible all -m gather_facts --tree /tmp/facts  // export node facts
 ansible all -m gather_facts | grep ansible_distribution  // get node dist
 ```
 
-# run playbook
+## run playbook
 ```sh
 ansible-playbook --ask-become-pass <filename>.yml
 ansible-playbook -i inventory.cfg <filename>.yml -b  // [b] become root on the remote nodes
