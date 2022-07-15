@@ -1,6 +1,7 @@
 ---
 - hosts: all
   become: true
+  tags: web_servers
   vars_files:
     - "vars/{{ ansible_distribution }}.yml"
     - "vars/default.yml"
@@ -13,17 +14,24 @@
         name: "{{ packageName }}"
         state: present
 
-    - name: Create document root
-      file:
-        path: "/var/www/{{ http_host }}"
-        state: directory
+    - name: Copy files
+      copy:
+        src: "{{ repo_dst }}/"
+        dest: "/var/www/{{ http_host }}"
+        mode: 0644
         owner: "{{ app_user }}"
-        mode: '0755'
 
-    - name: Copy index test page
-      template:
-        src: "site-src/index.html"
-        dest: "/var/www/{{ http_host }}/index.html"
+    # - name: Create document root
+    #   file:
+    #     path: "/var/www/{{ http_host }}"
+    #     state: directory
+    #     owner: "{{ app_user }}"
+    #     mode: '0755'
+
+    # - name: Copy index test page
+    #   template:
+    #     src: "site-src/index.html"
+    #     dest: "/var/www/{{ http_host }}/index.html"
 
     - name: Set up Apache virtuahHost
       template:

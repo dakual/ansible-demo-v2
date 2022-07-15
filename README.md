@@ -76,9 +76,11 @@ ansible all -m gather_facts --tree /tmp/facts  // export node facts
 ansible all -m gather_facts | grep ansible_distribution  // get node dist
 ```
 
-## run playbook
+## playbook commands
 ```sh
 ansible-playbook --ask-become-pass <filename>.yml
 ansible-playbook -i inventory.cfg <filename>.yml -b  // [b] become root on the remote nodes
 ansible-playbook -i inventory.cfg  --limit <ip address> <filename>.yml
+ansible-playbook --list-tags apache-install/playbook.yml // list tags
+ansible-playbook --tags web_servers --ask-become-pass apache-install/playbook.yml  // run selected tag
 ```
